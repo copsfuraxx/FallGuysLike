@@ -1,20 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Sol.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Obstacle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Main.gd" type="Script" id=4]
 
 [node name="Main" type="Node"]
+script = ExtResource( 4 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 visible = false
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-speed = 14
-jump_impulse = 20
-bounce_impulse = 16
-fall_acceleration = 75
 
 [node name="Terrain" type="Spatial" parent="."]
 

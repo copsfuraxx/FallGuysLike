@@ -14,23 +14,26 @@ var velocity = Vector3.ZERO
 var cameraRY = .0
 var cameraRX = .0
 
-func _physics_process(delta):	
-	rotation_degrees.y += cameraRY
-	$RotationX.	rotation_degrees.x += cameraRX
+func _physics_process(delta):
+	rotation_degrees.y -= cameraRY
+	if($RotationX.rotation_degrees.x + cameraRX > -90 && $RotationX.rotation_degrees.x + cameraRX < 0):
+		$RotationX.rotation_degrees.x += cameraRX
 	cameraRY = .0
 	cameraRX = .0
 	
 	var direction = Vector3.ZERO
 	if Input.is_action_pressed("right"):
-		var v = Vector3.RIGHT
-		rotate(v, $RotationX/Camera.rotation.y)# * PI/180)
-		direction += v
+		direction.x += 1 * cos(rotation.y)
+		direction.z -= 1 * sin(rotation.y)
 	if Input.is_action_pressed("left"):
-		direction.x -= 1
+		direction.x += -1 * cos(rotation.y)
+		direction.z -= -1 * sin(rotation.y)
 	if Input.is_action_pressed("down"):
-		direction.z += 1
+		direction.x += 1 * sin(rotation.y)
+		direction.z += 1 * cos(rotation.y)
 	if Input.is_action_pressed("up"):
-		direction.z -= 1
+		direction.x += -1 * sin(rotation.y)
+		direction.z += -1 * cos(rotation.y)
 
 	if direction != Vector3.ZERO:
 		# In the lines below, we turn the character when moving and make the animation play faster.
@@ -53,4 +56,3 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		cameraRY += event.relative.x
 		cameraRX += event.relative.y
-		
