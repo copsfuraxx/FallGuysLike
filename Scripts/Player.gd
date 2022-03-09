@@ -14,6 +14,8 @@ var velocity = Vector3.ZERO
 var cameraRY = .0
 var cameraRX = .0
 
+var respawn = Vector3(0, 1, 0)
+
 func _physics_process(delta):
 	rotation_degrees.y -= cameraRY
 	if($RotationX.rotation_degrees.x - cameraRX > -90 && $RotationX.rotation_degrees.x - cameraRX < 0):
@@ -53,9 +55,13 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
 	if translation.y < -5:
-		translation = Vector3(0, 1, 0)
+		translation = respawn
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		cameraRY += event.relative.x
 		cameraRX += event.relative.y/2
+
+func _on_CheckPoint_body_entered(coord):
+	respawn = coord + Vector3.UP * 2
+	print(coord)
