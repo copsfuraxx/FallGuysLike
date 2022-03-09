@@ -16,8 +16,8 @@ var cameraRX = .0
 
 func _physics_process(delta):
 	rotation_degrees.y -= cameraRY
-	if($RotationX.rotation_degrees.x + cameraRX > -90 && $RotationX.rotation_degrees.x + cameraRX < 0):
-		$RotationX.rotation_degrees.x += cameraRX
+	if($RotationX.rotation_degrees.x - cameraRX > -90 && $RotationX.rotation_degrees.x - cameraRX < 0):
+		$RotationX.rotation_degrees.x -= cameraRX
 	cameraRY = .0
 	cameraRX = .0
 	
@@ -55,4 +55,4 @@ func _physics_process(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		cameraRY += event.relative.x
-		cameraRX += event.relative.y
+		cameraRX += event.relative.y/2
