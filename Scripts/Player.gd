@@ -51,6 +51,9 @@ func _physics_process(delta):
 	# the floor, walls, etc. when a collision happens the same frame.
 	velocity.y -= fall_acceleration * delta
 	velocity = move_and_slide(velocity, Vector3.UP)
+	
+	if translation.y < -5:
+		translation = Vector3(0, 1, 0)
 
 func _input(event):
 	if event is InputEventMouseMotion:

@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Ressources/Obstacle.tres" type="Material" id=1]
+[ext_resource path="res://Scripts/Tourniquet.gd" type="Script" id=2]
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 1 )
+size = Vector3( 10, 2, 2 )
 
 [sub_resource type="ConvexPolygonShape" id=2]
-points = PoolVector3Array( 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1 )
+points = PoolVector3Array( 5, 1, 1, 5, 1, -1, -5, 1, 1, 5, -1, 1, 5, -1, -1, -5, 1, -1, -5, -1, 1, -5, -1, -1 )
 
-[node name="Obstacle" type="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+[node name="Tourniquet" type="KinematicBody"]
+script = ExtResource( 2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 mesh = SubResource( 1 )
