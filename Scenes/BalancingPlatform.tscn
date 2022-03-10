@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Ressources/cone.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Ressources/Obstacle.tres" type="Material" id=2]
+[ext_resource path="res://Scripts/Platform.gd" type="Script" id=3]
+
+[sub_resource type="CylinderMesh" id=2]
+material = ExtResource( 2 )
+top_radius = 5.0
+bottom_radius = 5.0
+height = 0.1
+
+[sub_resource type="CylinderShape" id=3]
+radius = 4.97117
+
+[node name="BalancingPlatform" type="Spatial"]
+
+[node name="Platform" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+collision_layer = 2
+axis_lock_motion_x = true
+axis_lock_motion_y = true
+axis_lock_motion_z = true
+move_lock_x = true
+move_lock_y = true
+move_lock_z = true
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Platform"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0500002, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="Platform"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0 )
+shape = SubResource( 3 )
+
+[node name="Area" type="Area" parent="Platform"]
+collision_layer = 2
+
+[node name="CollisionShape2" type="CollisionShape" parent="Platform/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0 )
+shape = SubResource( 3 )
+
+[node name="cone" type="MeshInstance" parent="."]
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[connection signal="body_entered" from="Platform/Area" to="Platform" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Platform/Area" to="Platform" method="_on_Area_body_exited"]
